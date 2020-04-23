@@ -1,0 +1,509 @@
+﻿<UserControl x:Class="ReportsLibrary.View.Menus.SideMenu"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:util="clr-namespace:ReportsLibrary.Util"
+			 d:DesignWidth="400"
+			 mc:Ignorable="d" >
+
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<!-- Иконки кнопок в SVG -->
+				<ResourceDictionary Source="../Util/SvgIconsDictionary.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
+
+	<ScrollViewer VerticalScrollBarVisibility="Auto">
+		<StackPanel Name="WrapperStackPanel">
+			<Expander Name="ReportsExpander" HorizontalAlignment="Stretch" Width="Auto" IsExpanded="True" 
+					  HorizontalContentAlignment="Stretch" Cursor="Hand" Padding="2.5" Margin="2.5 5 2.5 2.5" >
+				<!-- Правка дефекта с неотображением на некоторых машинах фона заголовка -->
+				<Expander.Header >
+					<Border Background="{Binding Source={x:Static util:Constants.BackColor4_BlueBayoux}}">
+						<TextBlock Foreground="{Binding Source={x:Static util:Constants.ForeColor2_PapayaWhip}}" 
+								   Width="{Binding ElementName=InternalExpander, Path=ActualWidth}" 
+								   Padding="2.5" HorizontalAlignment="Stretch" 
+								   Text="Отчеты" />
+					</Border>
+				</Expander.Header>
+				<StackPanel>
+
+					<!-- Печать отчета отгрузка по изделию -->
+                    <Button Name="ShipmentByProduct" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета отгрузки по изделию" 
+					        Click="ShipmentByProductButton_OnClick" >
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Width="20" Margin="5 0">
+								<Rectangle.Fill>
+									<VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+								</Rectangle.Fill>
+							</Rectangle>
+							<TextBlock Text="Отгрузка по изделию" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						</StackPanel>
+					</Button>
+
+					<!-- Печать отчета отгрузка по потребителю -->
+                    <Button Name="ShipmentByCompan" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета отгрузки по потребителю" 
+					        Click="ShipmentByCompanyButton_OnClick" >
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Width="20" Margin="5 0">
+								<Rectangle.Fill>
+									<VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+								</Rectangle.Fill>
+							</Rectangle>
+							<TextBlock Text="Отгрузка по потребителю" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						</StackPanel>
+					</Button>
+
+					<!-- Печать отчета остатки по видам продукции -->
+                    <Button Name="RemainByTypeProduct" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета остатки по видам продукции" 
+					        Click="RemainByTypeProductButton_OnClick" >
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Width="20" Margin="5 0">
+								<Rectangle.Fill>
+									<VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+								</Rectangle.Fill>
+							</Rectangle>
+							<TextBlock Text="Остатки по видам продукции" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						</StackPanel>
+					</Button>
+
+					<!-- Печать отчета расход по видам продукции(общий) -->
+                    <Button Name="ExportByTypeProduct" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета расход по видам продукции(общий)" 
+					        Click="ExportByTypeProductButton_OnClick" >
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Width="20" Margin="5 0">
+								<Rectangle.Fill>
+									<VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+								</Rectangle.Fill>
+							</Rectangle>
+							<TextBlock Text="Расход по видам продукции(общий)" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						</StackPanel>
+					</Button>
+
+					<!-- Печать отчета расход по видам продукции(с территорией) -->
+                    <Button Name="ExportByTypeProductWhithTerritory" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета расход по видам продукции(с территорией)" 
+					        Click="ExportByTypeProductWhithTerritoryButton_OnClick" >
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Width="20" Margin="5 0">
+								<Rectangle.Fill>
+									<VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+								</Rectangle.Fill>
+							</Rectangle>
+							<TextBlock Text="Расход по видам продукции(с территорией)" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						</StackPanel>
+					</Button>
+
+                    <!-- Печать отчета расход по видам продукции (итоги по территориям) -->
+                    <Button Name="ExportResultsTerritory" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета расход по видам продукции (итоги по территориям)" 
+					        Click="ExportResultsTerritoryButton_OnClick" >
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Width="20" Margin="5 0">
+								<Rectangle.Fill>
+									<VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+								</Rectangle.Fill>
+							</Rectangle>
+							<TextBlock Text="Расход по видам продукции (итоги по территориям)" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						</StackPanel>
+					</Button>
+
+				    <!-- Печать отчета приход по видам продукции -->
+                    <Button Name="SupplyByTypeProduct" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+				            ToolTip="Просмотр и печать отчета приход по видам продукции" 
+				            Click="SupplyByTypeProductButton_OnClick" >
+				        <StackPanel Orientation="Horizontal">
+				            <Rectangle Width="20" Margin="5 0">
+				                <Rectangle.Fill>
+				                    <VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+				                </Rectangle.Fill>
+				            </Rectangle>
+				            <TextBlock Text="Приход по видам продукции" 
+				                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+				        </StackPanel>
+				    </Button>
+
+                    <!-- Печать отчета расход(кол-во) -->
+                    <Button Name="ShipmentCount" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета расход(кол-во)" 
+					        Click="ShipmentCountButton_OnClick" >
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Width="20" Margin="5 0">
+								<Rectangle.Fill>
+									<VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+								</Rectangle.Fill>
+							</Rectangle>
+							<TextBlock Text="Расход(кол-во)" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						</StackPanel>
+					</Button>
+
+					<!-- Печать отчета отгрузка -->
+                    <Button Name="Shipment" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета отгрузка" 
+					        Click="ShipmentButton_OnClick" >
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Width="20" Margin="5 0">
+								<Rectangle.Fill>
+									<VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+								</Rectangle.Fill>
+							</Rectangle>
+							<TextBlock Text="Отгрузка" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						</StackPanel>
+					</Button>
+
+				    <!-- Печать отчета выпуск -->
+                    <Button Name="Realase" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+				            ToolTip="Просмотр и печать отчета выпуск" 
+				            Click="RealaseButton_OnClick" >
+				        <StackPanel Orientation="Horizontal">
+				            <Rectangle Width="20" Margin="5 0">
+				                <Rectangle.Fill>
+				                    <VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+				                </Rectangle.Fill>
+				            </Rectangle>
+				            <TextBlock Text="Выпуск" 
+				                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+				        </StackPanel>
+				    </Button>
+
+                    <!-- Печать отчета остатки с годом выпуска -->
+                    <Button Name="RemainWhithYear" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета остатки с годом выпуска" 
+					        Click="RemainWhithYearButton_OnClick" >
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Width="20" Margin="5 0">
+								<Rectangle.Fill>
+									<VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+								</Rectangle.Fill>
+							</Rectangle>
+							<TextBlock Text="Остатки с годом выпуска" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						</StackPanel>
+					</Button>
+				</StackPanel>
+			</Expander>
+			<Expander Name="ExpenditureByTerritory" HorizontalAlignment="Stretch" Width="Auto" IsExpanded="True" 
+		              HorizontalContentAlignment="Stretch" Cursor="Hand" Padding="2.5" Margin="2.5 5 2.5 2.5">
+		        <!-- Правка дефекта с неотображением на некоторых машинах фона заголовка -->
+		        <Expander.Header >
+		            <Border Background="{Binding Source={x:Static util:Constants.BackColor4_BlueBayoux}}">
+		                <TextBlock Foreground="{Binding Source={x:Static util:Constants.ForeColor2_PapayaWhip}}" 
+		                           Width="{Binding ElementName=InternalExpander, Path=ActualWidth}" 
+		                           Padding="2.5" HorizontalAlignment="Stretch" 
+		                           Text="Расход по территориям" />
+		            </Border>
+		        </Expander.Header>
+		        <StackPanel>
+		            <!-- Печать отчета Расход за месяц -->
+                    <Button Name="ExpenditureForTheMonth" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+		                    ToolTip="Просмотр и печать отчета Расход за месяц" 
+		                    Click="ExpenditureForTheMonthButton_OnClick" >
+		                <StackPanel Orientation="Horizontal">
+		                    <Rectangle Width="20" Margin="5 0">
+		                        <Rectangle.Fill>
+		                            <VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+		                        </Rectangle.Fill>
+		                    </Rectangle>
+		                    <TextBlock Text="Расход за месяц" 
+		                               VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+		                </StackPanel>
+		            </Button>
+
+                    <!-- Печать отчета весь экспорт -->
+                    <Button Name="TotalFromYear" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+		                    ToolTip="Просмотр и печать отчета Итог с начала года" 
+		                    Click="TotalFromYearButton_OnClick" >
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Width="20" Margin="5 0">
+                                <Rectangle.Fill>
+                                    <VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <TextBlock Text="Итог с начала года" 
+		                               VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+		    </Expander>
+
+			<Expander Name="SummaryExpander" HorizontalAlignment="Stretch" Width="Auto" IsExpanded="True" 
+					  HorizontalContentAlignment="Stretch" Cursor="Hand" Padding="2.5" Margin="2.5 5 2.5 2.5" >
+				<!-- Правка дефекта с неотображением на некоторых машинах фона заголовка -->
+				<Expander.Header >
+					<Border Background="{Binding Source={x:Static util:Constants.BackColor4_BlueBayoux}}">
+						<TextBlock Foreground="{Binding Source={x:Static util:Constants.ForeColor2_PapayaWhip}}" 
+								   Width="{Binding ElementName=InternalExpander, Path=ActualWidth}" 
+								   Padding="2.5" HorizontalAlignment="Stretch" 
+								   Text="Сводки" />
+					</Border>
+				</Expander.Header>
+				<StackPanel>
+
+					<!-- Печать отчета отгрузка в Рф -->
+                    <Button Name="ShipmentInRussia" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета отгрузки в РФ" 
+					        Click="ShipmentInRussiaButton_OnClick" >
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Width="20" Margin="5 0">
+								<Rectangle.Fill>
+									<VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+								</Rectangle.Fill>
+							</Rectangle>
+							<TextBlock Text="Отгрузки в РФ" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						</StackPanel>
+					</Button>
+
+					<!-- Печать отчета для отчета по учету поставок -->
+                    <Button  Name="ForReportOnAccountingSupplies"  HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета Для отчета по учету поставок" 
+					        Click="ForReportOnAccountingSuppliesButton_OnClick" >
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Width="20" Margin="5 0">
+								<Rectangle.Fill>
+									<VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+								</Rectangle.Fill>
+							</Rectangle>
+							<TextBlock Text="Для отчета по учету поставок" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						</StackPanel>
+					</Button>
+
+					<!-- Печать отчета для контроля дебюторской задолжности -->
+					<Button Name="ControlDeb" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета Для контроля дебюторской задолжности" 
+					        Click="ControlDebtsButton_OnClick" >
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Width="20" Margin="5 0">
+								<Rectangle.Fill>
+									<VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+								</Rectangle.Fill>
+							</Rectangle>
+							<TextBlock Text="Для контроля дебюторской задолжности" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						</StackPanel>
+					</Button>
+
+					<!-- Печать отчета экспорт по видам поставки(по учету) -->
+                    <Button Name="ExportByTypeSupply" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета экспорт по видам поставки (по учету)" 
+					        Click="ExportByTypeSupplyButton_OnClick" >
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Width="20" Margin="5 0">
+								<Rectangle.Fill>
+									<VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+								</Rectangle.Fill>
+							</Rectangle>
+							<TextBlock Text="Экспорт по видам поставки (по учету)" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						</StackPanel>
+					</Button>
+
+					<!-- Печать отчета экспорт по видам поставки(на дату отгрузки) -->
+                    <Button Name="ExportByTypeSupply2" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета экспорт по видам поставки (на дату отгрузки)" 
+					        Click="ExportByTypeSupply2Button_OnClick" >
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Width="20" Margin="5 0">
+								<Rectangle.Fill>
+									<VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+								</Rectangle.Fill>
+							</Rectangle>
+							<TextBlock Text="Экспорт по видам поставки (на дату отгрузки)" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						</StackPanel>
+					</Button>
+
+				    <!-- Печать отчета Сводки. Отгружено дилерам -->
+                    <Button Name="ShipmentForDilers" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+				    ToolTip="Просмотр и печать отчета Отгружено дилерам" 
+				    Click="ShipmentForDilersButton_OnClick" >
+				    <StackPanel Orientation="Horizontal">
+				        <Rectangle Width="20" Margin="5 0">
+				            <Rectangle.Fill>
+				                <VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+				            </Rectangle.Fill>
+				        </Rectangle>
+				        <TextBlock Text="Отгружено дилерам" 
+				                   VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+				    </StackPanel>
+				    </Button>
+
+                    <!-- Печать отчета в счет зарплаты -->
+                    <Button Name="AtTheExpenseOfWages" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета в счет зарплаты" 
+					        Click="AtTheExpenseOfWagesButton_OnClick" >
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Width="20" Margin="5 0">
+								<Rectangle.Fill>
+									<VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+								</Rectangle.Fill>
+							</Rectangle>
+							<TextBlock Text="В счет зарплаты" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+						</StackPanel>
+					</Button>
+				</StackPanel>
+			</Expander>
+
+            <Expander Name="ExportAccountingExpander" HorizontalAlignment="Stretch" Width="Auto" IsExpanded="True" 
+					  HorizontalContentAlignment="Stretch" Cursor="Hand" Padding="2.5" Margin="2.5 5 2.5 2.5" >
+                <!-- Правка дефекта с неотображением на некоторых машинах фона заголовка -->
+                <Expander.Header >
+                    <Border Background="{Binding Source={x:Static util:Constants.BackColor4_BlueBayoux}}">
+                        <TextBlock Foreground="{Binding Source={x:Static util:Constants.ForeColor2_PapayaWhip}}" 
+								   Width="{Binding ElementName=InternalExpander, Path=ActualWidth}" 
+								   Padding="2.5" HorizontalAlignment="Stretch" 
+								   Text="Учет экспорта" />
+                    </Border>
+                </Expander.Header>
+                <StackPanel>
+                    <!-- Печать отчета весь экспорт -->
+                    <Button Name="ExportAccountingAll" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+					        ToolTip="Просмотр и печать отчета Весь экспорт" 
+					        Click="ExportAccountingAllButton_OnClick" >
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Width="20" Margin="5 0">
+                                <Rectangle.Fill>
+                                    <VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <TextBlock Text="Весь экспорт" 
+							           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
+                    </Button>
+                    <!-- Печать отчета По курсу на дату отгрузки -->
+                    <Button Name="AtRateOnDateOfShipment" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+                            ToolTip="Просмотр и печать отчета Экспорт по курсу на дату отгрузки" 
+                            Click="AtRateOnDateOfShipmentButton_OnClick" >
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Width="20" Margin="5 0">
+                                <Rectangle.Fill>
+                                    <VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <TextBlock Text="Экспорт по курсу на дату отгрузки" 
+                                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
+                    </Button>
+                    <!-- Готовая продукция(скл.81) -->
+                    <Button Name="ExportAccountingFinishedProducts" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+                            ToolTip="Просмотр и печать отчета Готовая продукция(скл.81)" 
+                            Click="ExportAccountingFinishedProductsButton_OnClick" >
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Width="20" Margin="5 0">
+                                <Rectangle.Fill>
+                                    <VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <TextBlock Text="Готовая продукция(скл.81)" 
+                                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Печать отчета товары(скл.38) -->
+                    <Button Name="ExportAccountingProduct" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+                            ToolTip="Просмотр и печать отчета Товары(скл.38)" 
+                            Click="ExportAccountingProductButton_OnClick" >
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Width="20" Margin="5 0">
+                                <Rectangle.Fill>
+                                    <VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <TextBlock Text="Товары(скл.38)" 
+                                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Печать отчета материалы -->
+                    <Button Name="ExportAccountingMaterial" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+                            ToolTip="Просмотр и печать отчета Материалы" 
+                            Click="ExportAccountingMaterialButton_OnClick" >
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Width="20" Margin="5 0">
+                                <Rectangle.Fill>
+                                    <VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <TextBlock Text="Материалы" 
+                                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Печать отчета оборудование -->
+                    <Button Name="ExportAccountingEquipment" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+                            ToolTip="Просмотр и печать отчета Оборудование" 
+                            Click="ExportAccountingEquipmentButton_OnClick" >
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Width="20" Margin="5 0">
+                                <Rectangle.Fill>
+                                    <VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <TextBlock Text="Оборудование(скл.39)" 
+                                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
+                    </Button>
+		            <!-- Печать отчета Экспорт по территориям -->
+                    <Button Name="ExportByTerritory" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+                            ToolTip="Просмотр и печать отчета Экспорт по территориям" 
+                            Click="ExportByTerritoryButton_OnClick" >
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Width="20" Margin="5 0">
+                                <Rectangle.Fill>
+                                    <VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <TextBlock Text="Экспорт по территориям" 
+                                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
+                    </Button>
+                    <!-- Печать отчета Экспорт по территориям (продукции по курсу на дату отгрузки)-->
+                    <Button Name="ExportByTerritoryFinishedProductsByDateShipment" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+                            ToolTip="Просмотр и печать отчета Экспорт по территориям (продукции по курсу на дату отгрузки)" 
+                            Click="ExportByTerritoryFinishedProductsByDateShipmentButton_OnClick" >
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Width="20" Margin="5 0">
+                                <Rectangle.Fill>
+                                    <VisualBrush Visual="{StaticResource PrintSvgIcon}" Stretch="Uniform" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <TextBlock Text="Экспорт по территориям(пр. по курсу на дату отгрузки)" 
+                                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Expander>
+		    <!-- Ввод сроков оплаты -->
+            <Button Name="EnterDatePay" HorizontalContentAlignment="Left" Cursor="Hand" Margin="0 0 0 5" 
+		            ToolTip="Ввод сроков оплаты" 
+		            Click="EnterDatePayButton_OnClick" >
+		        <StackPanel Orientation="Horizontal">
+		            <Rectangle Width="20" Margin="5 0">
+		                <Rectangle.Fill>
+		                    <VisualBrush Visual="{StaticResource AddSvgIcon}" Stretch="Uniform" />
+		                </Rectangle.Fill>
+		            </Rectangle>
+		            <TextBlock Text="Ввод сроков оплаты" 
+		                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+		        </StackPanel>
+		    </Button>
+        </StackPanel>
+	</ScrollViewer>
+</UserControl>

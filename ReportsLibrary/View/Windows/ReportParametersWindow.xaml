@@ -1,0 +1,570 @@
+﻿<Window x:Class="ReportsLibrary.View.Windows.ReportParametersWindow"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+		xmlns:util="clr-namespace:ReportsLibrary.Util" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+		mc:Ignorable="d" 
+		WindowStartupLocation="CenterOwner" 
+		Title="Указание параметров отчёта" 
+		SizeToContent="WidthAndHeight" Height="Auto" Width="Auto" >
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <!-- Увеличенный размер календаря компонента DatePicker -->
+            <Style x:Key="StyleBigCalendar" TargetType="{x:Type Calendar}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Calendar}">
+                            <Viewbox Height="250" Width="250">
+                                <CalendarItem x:Name="PART_CalendarItem" Background="{TemplateBinding Background}" 
+											  BorderThickness="{TemplateBinding BorderThickness}" 
+											  BorderBrush="{TemplateBinding BorderBrush}" />
+                            </Viewbox>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Иконки кнопок в SVG -->
+                <ResourceDictionary Source="../Util/SvgIconsDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок с параметром подсказки ввода -->
+        <Label Grid.Row="0" Name="MessageLabel" VerticalAlignment="Center" HorizontalAlignment="Center" 
+			   Foreground="{Binding Source={x:Static util:Constants.ForeColor1_BigStone}}" 
+			   FontWeight="Bold" Content="Не передан параметр подсказки ввода" />
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Обёртка полей [За месяц/год/период] -->
+            <Grid Grid.Row="1" Name="PeriodWrapperGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <RadioButton Grid.Column="1" VerticalAlignment="Center" GroupName="PeriodRadioButtonGroup" 
+				             Content="За месяц" Name="MonthPeriodRadioButton" VerticalContentAlignment="Center" 
+				             Margin="2.5" Checked="RadioButton_OnChecked" />
+                <RadioButton Grid.Column="2" VerticalAlignment="Center" GroupName="PeriodRadioButtonGroup" 
+				             Content="С начало года" Name="YearPeriodRadioButton" 
+				             Margin="2.5" Checked="RadioButton_OnChecked" />
+                <RadioButton Grid.Column="3" VerticalAlignment="Center" GroupName="PeriodRadioButtonGroup" 
+				             Content="За период" Name="PeriodRadioButton" 
+				             Margin="2.5" Checked="RadioButton_OnChecked" />
+            </Grid>
+
+            <!-- Обёртка полей [За месяц/год] -->
+            <Grid Grid.Row="2" Name="MonthOrYearWrapperGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="2.5">
+					<Run Name="MonthOrYearRun">Период</Run>
+					<Run>: </Run>
+                </TextBlock>
+                <RadioButton Grid.Column="1" VerticalAlignment="Center" GroupName="MonthOrYearRadioButtonGroup" 
+				             Content="За месяц" Name="MonthRadioButton" VerticalContentAlignment="Center" 
+				             Margin="2.5" Checked="RadioButton_OnChecked" />
+                <RadioButton Grid.Column="2" VerticalAlignment="Center" GroupName="MonthOrYearRadioButtonGroup" 
+				             Content="С начало года" Name="YearRadioButton" 
+				             Margin="2.5" Checked="RadioButton_OnChecked" />
+            </Grid>
+
+            <!-- Обёртка полей [Склад] -->
+            <Grid Grid.Row="3" Name="WarehouseWrapperGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition MinWidth="220"  Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="2.5">
+					<Run Name="WarehouseRun">Склад</Run>
+					<Run>: </Run>
+                </TextBlock>
+                <RadioButton Grid.Column="1" VerticalAlignment="Center" GroupName="WarehouseRadioButtonGroup" 
+							 Content="Все" Name="WarehouseAllRadioButton" VerticalContentAlignment="Center" 
+							 Margin="2.5" Checked="RadioButton_OnChecked" />
+                <RadioButton Grid.Column="2" VerticalAlignment="Center" GroupName="WarehouseRadioButtonGroup" 
+							 Content="Указанный" Name="WarehouseSpecifiedRadioButton" 
+							 Margin="2.5" Checked="RadioButton_OnChecked" />
+                <ComboBox Grid.Column="3" Name="WarehousesComboBox" VerticalContentAlignment="Center" Margin="2.5" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+								<!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+								<Run Text="{Binding Id}" />
+								<Run Text="{Binding Name}" />
+								<!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <ComboBox.ItemsPanel>
+                        <!-- Костыль увеличения производительности ComboBox -->
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+            </Grid>
+
+            <!-- Обёртка полей [Цех] -->
+            <Grid Grid.Row="4" Name="TypeProductWrapperGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition MinWidth="220"  Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="2.5">
+					<Run Name="TypeProductRun">Вид</Run>
+					<Run>: </Run>
+                </TextBlock>
+                <ComboBox Grid.Column="1" Name="TypeProductsComboBox" VerticalContentAlignment="Center" Margin="2.5" 
+				          SelectedIndex="0">
+                    <ComboBoxItem>Узлы</ComboBoxItem>
+                    <ComboBoxItem>Металлорежущие станки</ComboBoxItem>
+                    <ComboBoxItem>Деревообрабатывающие станки</ComboBoxItem>
+                    <ComboBoxItem>ТНП</ComboBoxItem>
+                    <ComboBoxItem>Прочая</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+
+            <!-- Обёртка полей [Цех] -->
+            <Grid Grid.Row="5" Name="WorkGuildWrapperGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition MinWidth="220"  Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="2.5">
+					<Run Name="WorkGuildRun">Цех</Run>
+					<Run>: </Run>
+                </TextBlock>
+                <RadioButton Grid.Column="1" VerticalAlignment="Center" GroupName="WorkGuildRadioButtonGroup" 
+				             Content="Все" Name="WorkGuildAllRadioButton" VerticalContentAlignment="Center" 
+				             Margin="2.5" Checked="RadioButton_OnChecked" />
+                <RadioButton Grid.Column="2" VerticalAlignment="Center" GroupName="WorkGuildRadioButtonGroup" 
+				             Content="Указанный" Name="WorkGuildSpecifiedRadioButton" VerticalContentAlignment="Center"
+				             Margin="2.5" Checked="RadioButton_OnChecked" />
+                <ComboBox Grid.Column="3" Name="WorkGuildsComboBox" VerticalContentAlignment="Center" Margin="2.5" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+								<!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+								<Run Text="{Binding Id}" />
+								<Run Text="{Binding Name}" />
+								<!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <ComboBox.ItemsPanel>
+                        <!-- Костыль увеличения производительности ComboBox -->
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+            </Grid>
+
+            <!-- Обёртка полей [Дата] -->
+            <Grid Grid.Row="6" Name="DateWrapperGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="2.5">
+					<Run Name="DateRun">Дата</Run>
+					<Run>: </Run>
+                </TextBlock>
+                <DatePicker Grid.Column="1" Name="DatePicker" CalendarStyle="{StaticResource StyleBigCalendar}" 
+							VerticalContentAlignment="Center" Margin="2.5" />
+            </Grid>
+
+            <!-- Обёртка полей [Дата Период] -->
+            <Grid Grid.Row="7" Name="DatePeriodWrapperGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="2.5">
+					<Run Name="DateStartRun">с</Run>
+					<Run>: </Run>
+                </TextBlock>
+                <DatePicker Grid.Column="1" Name="DateStartPicker" CalendarStyle="{StaticResource StyleBigCalendar}" 
+				            VerticalContentAlignment="Center" Margin="2.5" />
+                <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="2.5">
+					<Run Name="DateEndRun">по</Run>
+					<Run>: </Run>
+                </TextBlock>
+                <DatePicker Grid.Column="3" Name="DateEndPicker" CalendarStyle="{StaticResource StyleBigCalendar}" 
+				            VerticalContentAlignment="Center" Margin="2.5" />
+            </Grid>
+
+            <!-- Обёртка полей [Месяц/Год] -->
+            <Grid Grid.Row="8" Name="MonthYearWrapperGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" MinWidth="150" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" MinWidth="75" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="2.5">
+					<Run Name="MonthRun">Месяц</Run>
+					<Run>: </Run>
+                </TextBlock>
+                <ComboBox Grid.Column="2" Name="MonthComboBox" DisplayMemberPath="Value" 
+						  VerticalContentAlignment="Center" Margin="2.5" >
+                    <ComboBox.ItemsPanel>
+                        <!-- Костыль увеличения производительности ComboBox -->
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+
+                <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="2.5">
+					<Run Name="YearRun">Год</Run>
+					<Run>: </Run>
+                </TextBlock>
+                <xctk:IntegerUpDown Grid.Column="4" FormatString="0" Minimum="0" Name="YearIntegerUpDown" 
+									VerticalContentAlignment="Center" Margin="2.5" />
+            </Grid>
+
+            <!-- Обёртка поля [Продукт] -->
+            <Grid Grid.Row="9" Name="ProductWrapperGrid"
+						      LostFocus="SearchFieldWrapperGrid_OnLostFocus" 
+						      GotFocus="SearchFieldWrapperGrid_OnGotFocus" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="370" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <!-- TextBox поиска [Продукта] -->
+                <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"
+								  
+								   Name="ProductLabel" Content="Продукт:" 
+								   Margin="2.5 2.5 1.25 2.5" />
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="1.25 2.5 2.5 2.5" 
+							         VerticalContentAlignment="Center" HorizontalScrollBarVisibility="Auto" 
+									 PreviewKeyUp="ProductTextBox_OnPreviewKeyUp"
+							         TextChanged="ProductTextBox_OnTextChanged" 
+							         Name="ProductTextBox" />
+
+                <!-- DataGrid поиска сущности (Таблица выдачи результатов поиска) -->
+                <DataGrid Grid.Row="1" Grid.Column="1"
+							          HorizontalGridLinesBrush="{x:Static util:Constants.LineBorderColor1_BigStone}"
+							          VerticalGridLinesBrush="{x:Static util:Constants.LineBorderColor1_BigStone}" 
+							          BorderBrush="{x:Static util:Constants.LineBorderColor3_SanJuan}" 
+							          Background="{x:Static util:Constants.BackColor8_DiSerria}" 
+							          Foreground="{x:Static util:Constants.ForeColor1_BigStone}" 
+							          HorizontalScrollBarVisibility="Auto" 
+							          HorizontalAlignment="Stretch" 
+							          AutoGenerateColumns="False" 
+							          VerticalAlignment="Stretch" 
+							          HeadersVisibility="None" 
+							          SelectionUnit="FullRow" 
+							          Margin="2.5 -3 2.5 2.5" 
+							          SelectionMode="Single" 
+							          Visibility="Collapsed" 
+							          AlternationCount="2" 
+							          BorderThickness="2"
+							          IsReadOnly="True"
+							          RowHeight="30" 
+							          Cursor="Hand" 
+							          Height="120" 
+							          Name="SearchProductDataGrid" 
+							          PreviewKeyUp="SearchDataGrid_OnPreviewKeyUp" 
+							          PreviewKeyDown="SearchDataGrid_OnPreviewKeyDown"
+							          PreviewMouseDown="SearchDataGrid_OnPreviewMouseDown" >
+
+                    <!-- Выделение строки при наведении мышкой и альтернативный цвет строк -->
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="IsSelected" Value="True"/>
+                                </Trigger>
+                                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                    <Setter Property="Background"
+												        Value="{x:Static util:Constants.BackColor1_AthensGray}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=Name}" Width="3*">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="2"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <!-- Обёртка поля [Потребитель] -->
+            <Grid Grid.Row="10" Name="CompanyWrapperGrid"
+			      LostFocus="SearchFieldWrapperGrid_OnLostFocus" 
+			      GotFocus="SearchFieldWrapperGrid_OnGotFocus">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="370" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <!-- TextBox поиска [Получателя] -->
+                <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"
+							   Name="CompaniesLabel" Content="Получатель:" Margin="2.5 2.5 1.25 2.5" />
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="1.25 2.5 2.5 2.5" 
+								 VerticalContentAlignment="Center" HorizontalScrollBarVisibility="Auto" 
+								 PreviewKeyUp="CompanyTextBox_OnPreviewKeyUp"
+								 TextChanged="CompanyTextBox_OnTextChanged" 
+								 Name="CompanyTextBox"/>
+
+                <!-- DataGrid поиска сущности (Таблица выдачи результатов поиска) -->
+                <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+						          HorizontalGridLinesBrush="{x:Static util:Constants.LineBorderColor1_BigStone}" 
+						          VerticalGridLinesBrush="{x:Static util:Constants.LineBorderColor1_BigStone}" 
+						          BorderBrush="{x:Static util:Constants.LineBorderColor3_SanJuan}" 
+						          Background="{x:Static util:Constants.BackColor8_DiSerria}" 
+						          Foreground="{x:Static util:Constants.ForeColor1_BigStone}" 
+						          HorizontalScrollBarVisibility="Auto" 
+						          HorizontalAlignment="Stretch" 
+						          AutoGenerateColumns="False" 
+						          VerticalAlignment="Stretch" 
+						          HeadersVisibility="None" 
+						          SelectionUnit="FullRow" 
+						          Margin="2.5 -3 2.5 2.5" 
+						          SelectionMode="Single" 
+						          Visibility="Collapsed"
+						          AlternationCount="2" 
+						          BorderThickness="2" 
+						          IsReadOnly="True" 
+						          RowHeight="30" 
+						          Cursor="Hand" 
+						          Height="120" 
+						          Name="SearchCompaniesDataGrid"
+						          PreviewKeyUp="SearchDataGrid_OnPreviewKeyUp" 
+						          PreviewKeyDown="SearchDataGrid_OnPreviewKeyDown"
+						          PreviewMouseDown="SearchDataGrid_OnPreviewMouseDown" >
+
+                    <!-- Выделение строки при наведении мышкой и альтернативный цвет строк -->
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="IsSelected" Value="True"/>
+                                </Trigger>
+                                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                    <Setter Property="Background" 
+											        Value="{x:Static util:Constants.BackColor1_AthensGray}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=City}" Width="1*">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="2"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+
+                        <DataGridTextColumn Binding="{Binding Path=Name}" Width="3*">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="2"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <!-- Обёртка полей [Форма оплаты] -->
+            <Grid Grid.Row="11" Name="FormaPaymentWrapperGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition MinWidth="220"  Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="2.5">
+					<Run Name="FormaPaymentRun">Оплата</Run>
+					<Run>: </Run>
+                </TextBlock>
+                <ComboBox Grid.Column="1" Name="FormaPaymentComboBox" VerticalContentAlignment="Center" Margin="2.5" 
+				          SelectedIndex="2">
+                    <ComboBoxItem>с отсрочкой оплаты</ComboBoxItem>
+                    <ComboBoxItem>частичная оплата</ComboBoxItem>
+                    <ComboBoxItem>общая</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+
+            <!-- Обёртка полей [Выбора зарубежья] -->
+            <Grid Grid.Row="12" Name="AbroadWrapperGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition MinWidth="220"  Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="2.5">
+		            <Run Name="AbroadRun">Зарубежье</Run>
+		            <Run>: </Run>
+                </TextBlock>
+                <ComboBox Grid.Column="1" Name="AbroadCombobox" VerticalContentAlignment="Center" Margin="2.5" 
+		                  SelectedIndex="0">
+                    <ComboBoxItem>ближнее</ComboBoxItem>
+                    <ComboBoxItem>дальнее</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+        </Grid>
+
+        <!-- Обёртка кнопок [Подтверждение] и [Отмена] -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <!-- Кнопка с иконкой и подсветкой клавиатурного фокуса -->
+            <Button Name="ConfirmButton" Grid.Column="0" Margin="5 5 2.5 5" Cursor="Hand" ToolTip="Подтверждение" 
+					Click="ConfirmButton_OnClick" 
+					BorderThickness="1" BorderBrush="{x:Static util:Constants.LineBorderColor4_BlueBayoux}" >
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" 
+								BorderThickness="{TemplateBinding BorderThickness}" 
+								Background="{TemplateBinding Background}">
+                            <ContentPresenter Content="{TemplateBinding Content}" 
+											  ContentTemplate="{TemplateBinding ContentTemplate}" 
+											  Margin="{TemplateBinding Padding}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsFocused" Value="True">
+                                <Setter TargetName="Border" Property="Background" 
+										Value="{x:Static util:Constants.BackColor8_DiSerria}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Rectangle Width="20" Margin="5 0">
+                        <Rectangle.Fill>
+                            <VisualBrush  Visual="{StaticResource ConfirmSvgIcon}" Stretch="Uniform" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBlock Text="Подтвердить" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                </StackPanel>
+            </Button>
+
+            <!-- Кнопка с иконкой и подсветкой клавиатурного фокуса -->
+            <Button Grid.Column="1" Margin="2.5 5 5 5" Cursor="Hand" ToolTip="Отмена"
+					Click="CancelButton_OnClick" 
+					BorderThickness="1" BorderBrush="{x:Static util:Constants.LineBorderColor4_BlueBayoux}" >
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" 
+								BorderThickness="{TemplateBinding BorderThickness}" 
+								Background="{TemplateBinding Background}">
+                            <ContentPresenter Content="{TemplateBinding Content}" 
+											  ContentTemplate="{TemplateBinding ContentTemplate}" 
+											  Margin="{TemplateBinding Padding}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsFocused" Value="True">
+                                <Setter TargetName="Border" Property="Background" 
+										Value="{x:Static util:Constants.BackColor8_DiSerria}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Rectangle Width="20" Margin="5 0">
+                        <Rectangle.Fill>
+                            <VisualBrush  Visual="{StaticResource CloseSvgIcon}" Stretch="Uniform" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBlock Text="Отмена" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
