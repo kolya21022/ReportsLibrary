@@ -38,4 +38,4 @@ FoxproDbFolder_BuhArhiv     	| string | v:\FOXPRO\BUH\Arhiv\ | Путь до а�
 
 ![Alt text](_img/app-screenshot-2.png "Скриншот приложения 2")  
 
-![Alt text](_img/app-screenshot-3.png "Скриншот приложения 3")  
+![Alt text](_img/app-screenshot-3.PNG "Скриншот приложения 3")  
